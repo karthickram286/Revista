@@ -2,6 +2,7 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 
 const app = express();
+const port = process.env.PORT || 4000;
 
 const rateLimiter = rateLimit({
     max: 250,
@@ -12,8 +13,8 @@ const rateLimiter = rateLimit({
 app.use(rateLimiter);
 
 // Starting server in port 4000 
-app.listen(4000, () => {
-    console.log(`Started server on port 4000`);
+app.listen(port, () => {
+    console.log(`Started server on port ${port}`);
 });
 
 app.get('/', (req, res) => {
