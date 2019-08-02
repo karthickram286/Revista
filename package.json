@@ -4,7 +4,7 @@
   "description": "A Journal/App built with MERN stack.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
