@@ -1,0 +1,27 @@
+{
+  "name": "revista",
+  "version": "0.1.0",
+  "description": "A Journal/App built with MERN stack.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karthickram286/Revista.git"
+  },
+  "author": "Karthick Ram",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karthickram286/Revista/issues"
+  },
+  "homepage": "https://github.com/karthickram286/Revista#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
