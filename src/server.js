@@ -1,6 +1,5 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
-const journalSchema = require('../model/journal');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -29,7 +28,7 @@ let journalArr = new Array();
 app.post('/api/addNote', (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
-    let journal = journalSchema;
+    let journal = {};
     journal.title = title;
     journal.body = body;
     journal.id = id+1;
