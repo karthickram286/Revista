@@ -6,4 +6,4 @@ deploy:
   provider: heroku
   api-key:
     secure: e02e1c38-f8db-4f48-931e-473d4cb8ef78
-  app: boiling-woodland-51127
+  app: cryptic-oasis-70200
