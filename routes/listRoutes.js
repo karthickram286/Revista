@@ -10,18 +10,6 @@ router.post('/addNote', (req, res) => {
     res.send('Note added successfully...');
 });
 
-// Getting a note with ID
-router.get('/getNote/:id', (req, res) => {
-
-});
-
-// Get all notes
-router.get('/getAllNotes', async (req, res) => {
-    const notes = await Note.find().select('title body');
-    res.send(notes);
-    console.log(notes);
-});
-
 // Saving a note
 async function saveNote(title, body) {
     try {
@@ -36,7 +24,39 @@ async function saveNote(title, body) {
     }
 }
 
+// Getting a note with ID
+router.get('/getNote/:id', async (req, res) => {
+    let id = req.params.id;
+    const note = await Note.findById(id);
+    res.send(note);
+});
 
+// Get all notes
+router.get('/getAllNotes', async (req, res) => {
+    const notes = await Note.find().select('title body dateCreated lastModified');
+    res.send(notes);
+});
+
+// Update a note by id
+router.post('/updateNote/:id', async (req, res) => {
+    let newTitle = req.body.title;
+    let newBody = req.body.body;
+    let id = req.params.id;
+    await Note.findByIdAndUpdate({_id: id}, {
+        $set: {
+            title: newTitle,
+            body: newBody,
+            lastModified: Date.now()
+        }
+    });
+    res.send('Note updated successfully');
+});
+
+// Remove a note by id
+router.delete('/deleteNote/:id', async (req, res) => {
+    let id = req.params.id;
+    await Note.findByIdAndDelete({_id: id});
+    res.send('Note deleted successfully');
+});
 
 module.exports = router;
-
