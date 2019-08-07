@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/karthickram286/Revista#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
-    "express-rate-limit": "^5.0.0"
+    "express-rate-limit": "^5.0.0",
+    "mongoose": "^5.6.8"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
