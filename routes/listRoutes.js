@@ -6,11 +6,11 @@ const Note = require('../model/note');
 router.post('/addNote', (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
-    let isNoteExists = checkIfNoteExists(title);
-    if (isNoteExists) {
-        res.send('Note with same title already exists');
-        return;
-    }
+    // let isNoteExists = checkIfNoteExists(title);
+    // if (isNoteExists) {
+    //     res.send('Note with same title already exists');
+    //     return;
+    // }
     let saveStatus = saveNote(title, body);
     if (saveStatus) {
         res.send('Note added successfully...');
@@ -36,7 +36,7 @@ async function saveNote(title, body) {
 }
 
 // Check if note with that title already exists
-async function checkIfNoteExists(noteTitle) {
+function checkIfNoteExists(noteTitle) {
     console.log(noteTitle);
     const note = await Note.findOne({
         title: noteTitle
