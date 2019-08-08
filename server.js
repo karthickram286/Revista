@@ -27,6 +27,7 @@ app.use('/api/notes', listRoutes);
 app.use('/api/user', userRoutes);
 
 // MongoDB Connectivity
+mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useFindAndModify: false })
     .then(() => console.log('Connected to MongoDB....'))
     .catch((err) => console.log('Error: ', err.message));

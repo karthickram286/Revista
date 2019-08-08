@@ -15,29 +15,21 @@ router.post('/addUser', (req, res) => {
         return;
     }
     let saveStatus = saveUser(name, email, password);
-    if (saveStatus) {
-        res.send('User added Successfully');
-    } else {
-        res.send(`Can't add user`);
-    }
+    saveStatus.then(result => {
+                    res.send('User added Successfully')  ;
+                }).catch(err => {
+                    res.send(err.message);
+                });
 });
 
 // Saving a User
 async function saveUser(name, email, password) {
-    try {
-        const user = new User({
-            name: name,
-            email: email,
-            password: password
-        });
-        const result = await user.save();
-        if (result) {
-            return true;
-        }
-    } catch (err) {
-        console.log(`Can't add user : ` + err.message);
-        return false;
-    }
+    const user = new User({
+        name: name,
+        email: email,
+        password: password
+    });
+    const result = await user.save();
 }
 
 /**
