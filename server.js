@@ -24,7 +24,7 @@ app.listen(port, () => {
 
 // Routing
 app.use('/api/notes', listRoutes);
-app.user('/api/user', userRoutes);
+app.use('/api/user', userRoutes);
 
 // MongoDB Connectivity
 mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useFindAndModify: false })
