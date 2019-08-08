@@ -31,7 +31,9 @@ async function saveUser(name, email, password) {
             password: password
         });
         const result = await user.save();
-        return true;
+        if (result) {
+            return true;
+        }
     } catch (err) {
         console.log(`Can't add user : ` + err.message);
         return false;
