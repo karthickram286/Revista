@@ -60,7 +60,7 @@ function validateEmail(email, res) {
 }
 
 function validatePassword(password, res) {
-    let isValidPassword = passwdValidator.validate(password);
+    let isValidPassword = passwordSchema.validate(password);
     if (!isValidPassword) {
         console.log('Invalid Password');
         res.send(`Password doesn't meet requirements`);
