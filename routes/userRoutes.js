@@ -8,8 +8,12 @@ router.post('/addUser', (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
-    validateEmail(email, res);
-    validatePassword(password, res);
+    if (!validateEmail(email, res)) {
+        return;
+    }
+    if (!validatePassword(password, res)) {
+        return;
+    }
     let saveStatus = saveUser(name, email, password);
     if (saveStatus) {
         res.send('User added Successfully');
@@ -56,7 +60,9 @@ function validateEmail(email, res) {
     if(!isValidEmail) {
         console.log('Invalid Email-Id');
         res.send(`Email-ID not valid`);
+        return false;
     }
+    return true;
 }
 
 function validatePassword(password, res) {
@@ -64,7 +70,9 @@ function validatePassword(password, res) {
     if (!isValidPassword) {
         console.log('Invalid Password');
         res.send(`Password doesn't meet requirements`);
+        return false;
     }
+    return true;
 }
 
 module.exports = router;

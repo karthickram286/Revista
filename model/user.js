@@ -9,6 +9,8 @@ const User = mongoose.model('User', new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true,
+        match: /.*@.*/
     },
     password: {
         type: String,
