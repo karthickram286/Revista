@@ -36,16 +36,16 @@ async function saveNote(title, body) {
 }
 
 // Check if note with that title already exists
-function checkIfNoteExists(noteTitle) {
-    console.log(noteTitle);
-    const note = await Note.findOne({
-        title: noteTitle
-    });
-    if (note) {
-        return true;
-    }
-    return false;
-}
+// function checkIfNoteExists(noteTitle) {
+//     console.log(noteTitle);
+//     const note = await Note.findOne({
+//         title: noteTitle
+//     });
+//     if (note) {
+//         return true;
+//     }
+//     return false;
+// }
 
 // Getting a note with ID
 router.get('/getNote/:id', async (req, res) => {
