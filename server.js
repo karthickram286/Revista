@@ -1,7 +1,8 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
-const routes = require('./routes/listRoutes');
+const listRoutes = require('./routes/listRoutes');
+const userRoutes = require('./routes/userRoutes');
 const dotenv = require('dotenv').config();
 
 const app = express();
@@ -22,7 +23,8 @@ app.listen(port, () => {
 });
 
 // Routing
-app.use('/api/notes', routes);
+app.use('/api/notes', listRoutes);
+app.user('/api/user', userRoutes);
 
 // MongoDB Connectivity
 mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useFindAndModify: false })
