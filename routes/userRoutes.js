@@ -66,3 +66,5 @@ function validatePassword(password, res) {
         res.send(`Password doesn't meet requirements`);
     }
 }
+
+module.exports = router;
