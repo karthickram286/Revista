@@ -14,6 +14,7 @@ const rateLimiter = rateLimit({
     message: "Too many requests from this IP, Please try after some time."
 });
 
+// Middlewares
 app.use(rateLimiter);
 app.use(express.json());
 

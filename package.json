@@ -20,6 +20,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.0.0",
+    "lodash": "^4.17.15",
     "mongoose": "^5.6.8",
     "password-validator": "^4.1.2"
   },
