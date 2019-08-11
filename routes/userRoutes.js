@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model/user');  
 const passwdValidator = require('password-validator');
+const bcrypt = require('bcrypt');
 
-// Adding a new User
+// Adding a new User (User Sign Up)
 router.post('/addUser', (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
@@ -22,6 +23,22 @@ router.post('/addUser', (req, res) => {
                 });
 });
 
+// Authenticating User (User Sign in)
+router.post('/signInUser', async (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    if (!validateEmail(email, res)) {
+        return;
+    }
+    if (!validatePassword(password, res)) {
+        return;
+    }
+    let user = await User.findOne({ email: email });
+    console.log(user);
+    res.send(user);
+});
+
+
 // Saving a User
 async function saveUser(name, email, password) {
     const user = new User({
@@ -29,7 +46,12 @@ async function saveUser(name, email, password) {
         email: email,
         password: password
     });
+    
+    // Hashing the password
+    const salt = await bcrypt.genSalt(5);
+    user.password = await bcrypt.hash(password, salt);
     const result = await user.save();
+    return result;
 }
 
 /**

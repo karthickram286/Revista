@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/karthickram286/Revista#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.0.0",
