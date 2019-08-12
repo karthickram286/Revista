@@ -4,6 +4,7 @@
   "description": "A Journal/App built with MERN stack.",
   "main": "server.js",
   "scripts": {
+    "build": "npm start",
     "start": "node server.js"
   },
   "repository": {
