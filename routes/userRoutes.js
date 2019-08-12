@@ -1,8 +1,11 @@
+const config = require('config');
+const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const User = require('../model/user');  
 const passwdValidator = require('password-validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // Adding a new User (User Sign Up)
 router.post('/addUser', (req, res) => {
@@ -15,9 +18,10 @@ router.post('/addUser', (req, res) => {
     if (!validatePassword(password, res)) {
         return;
     }
-    let saveStatus = saveUser(name, email, password);
-    saveStatus.then(result => {
-                    res.send('User added Successfully')  ;
+    let registeredUser = saveUser(name, email, password);
+    registeredUser.then(result => {
+                    const token = jwt.sign({ _id: result._id}, config.get('jwtPrivateKey'));
+                    res.header('x-auth-token', token).send(_.pick(result, ['_id', 'name', 'email']));
                 }).catch(err => {
                     res.send(err.message);
                 });
@@ -44,7 +48,9 @@ router.post('/signInUser', async (req, res) => {
     if (!validPassword) {
         return res.status(400).send('Invalid email or password');
     }
-    res.send('User signed-in Successfully');
+
+    const token = jwt.sign({ _id: user._id }, config.get('jwtPrivateKey'));
+    res.send(token);
 });
 
 

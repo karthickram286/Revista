@@ -1,3 +1,4 @@
+const config = require('config');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
@@ -32,6 +33,12 @@ mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useFindAndModify: false })
     .then(() => console.log('Connected to MongoDB....'))
     .catch((err) => console.log('Error: ', err.message));
+
+// Checking for JWT token
+if (!config.get('jwtPrivateKey')) {
+    console.error('JWT Private key not available.... Quitting the application');
+    process.exit(1);
+}
 
 app.get('/', (req, res) => {
     res.send(`Welcome to Revista...`);
