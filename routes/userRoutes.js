@@ -34,8 +34,17 @@ router.post('/signInUser', async (req, res) => {
         return;
     }
     let user = await User.findOne({ email: email });
-    console.log(user);
-    res.send(user);
+
+    // If User is not present in DB
+    if (!user) {
+        return res.status(400).send('Invalid email or password');
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+        return res.status(400).send('Invalid email or password');
+    }
+    res.send('User signed-in Successfully');
 });
 
 
