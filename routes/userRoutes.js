@@ -1,3 +1,4 @@
+const asyncMiddleware = require('../middleware/asyncMiddleware');
 const authorize = require('../middleware/authorize');
 const _ = require('lodash');
 const express = require('express');
@@ -7,7 +8,7 @@ const passwdValidator = require('password-validator');
 const bcrypt = require('bcrypt');
 
 // Adding a new User (User Sign Up)
-router.post('/addUser', (req, res) => {
+router.post('/addUser', asyncMiddleware((req, res) => {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
@@ -24,10 +25,10 @@ router.post('/addUser', (req, res) => {
                 }).catch(err => {
                     res.send(err.message);
                 });
-});
+}));
 
 // Authenticating User (User Sign in)
-router.post('/signInUser', async (req, res) => {
+router.post('/signInUser', asyncMiddleware(async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
     if (!validateEmail(email, res)) {
@@ -50,13 +51,13 @@ router.post('/signInUser', async (req, res) => {
 
     const token = user.generateAuthToken();
     res.send(token);
-});
+}));
 
 // Getting User Information
-router.get('/me', authorize, async (req, res) => {
+router.get('/me', authorize, asyncMiddleware(async (req, res) => {
     const user = await User.findById(req.user._id).select('name email');
     res.send(user);
-});
+}));
 
 // Saving a User
 async function saveUser(name, email, password) {
