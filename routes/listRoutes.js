@@ -1,9 +1,10 @@
+const authorize = require('../middleware/authorize');
 const express = require('express');
 const router = express.Router();
 const Note = require('../model/note');
 
 // Adding a new note
-router.post('/addNote', (req, res) => {
+router.post('/addNote', authorize, (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
     let saveStatus = saveNote(title, body);
