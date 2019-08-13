@@ -1,3 +1,4 @@
+const errorHandler = require('./middleware/error');
 const config = require('config');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
@@ -15,24 +16,29 @@ const rateLimiter = rateLimit({
     message: "Too many requests from this IP, Please try after some time."
 });
 
-// Middlewares
-app.use(rateLimiter);
-app.use(express.json());
-
-// Starting server 
-app.listen(port, () => {
-    console.log(`Started server on port ${port}`);
-});
-
-// Routing
-app.use('/api/notes', listRoutes);
-app.use('/api/user', userRoutes);
-
 // MongoDB Connectivity
 mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.MONGODB, { useNewUrlParser: true, useFindAndModify: false })
     .then(() => console.log('Connected to MongoDB....'))
     .catch((err) => console.log('Error: ', err.message));
+
+/**
+ * Middlewares
+ */
+app.use(express.json());
+app.use(rateLimiter);
+
+// Routing
+app.use('/api/notes', listRoutes);
+app.use('/api/user', userRoutes);
+
+// Error Middleware
+app.use(errorHandler);
+
+// Starting server 
+app.listen(port, () => {
+    console.log(`Started server on port ${port}`);
+});
 
 // Checking for JWT token
 if (!config.get('jwtPrivateKey')) {
