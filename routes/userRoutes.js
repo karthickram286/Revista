@@ -1,3 +1,4 @@
+const authorize = require('../middleware/authorize');
 const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
@@ -51,6 +52,11 @@ router.post('/signInUser', async (req, res) => {
     res.send(token);
 });
 
+// Getting User Information
+router.get('/me', authorize, async (req, res) => {
+    const user = await User.findById(req.user._id).select('name email');
+    res.send(user);
+});
 
 // Saving a User
 async function saveUser(name, email, password) {
