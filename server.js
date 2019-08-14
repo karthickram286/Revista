@@ -1,4 +1,4 @@
-const winston = require('winston');
+const winstonLogger = require('./middleware/winstonLogger');
 const errorHandler = require('./middleware/error');
 const config = require('config');
 const express = require('express');
@@ -7,6 +7,11 @@ const mongoose = require('mongoose');
 const listRoutes = require('./routes/listRoutes');
 const userRoutes = require('./routes/userRoutes');
 const dotenv = require('dotenv').config();
+
+process.on('uncaughtException', (ex) => {
+    console.log('Uncaught Exception...' + ex.message);
+    winstonLogger.error(ex.message, ex);
+});
 
 // Checking for JWT token
 if (!config.get('jwtPrivateKey')) {
