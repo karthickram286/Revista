@@ -1,3 +1,4 @@
+const winston = require('winston');
 const errorHandler = require('./middleware/error');
 const config = require('config');
 const express = require('express');
@@ -6,6 +7,12 @@ const mongoose = require('mongoose');
 const listRoutes = require('./routes/listRoutes');
 const userRoutes = require('./routes/userRoutes');
 const dotenv = require('dotenv').config();
+
+// Checking for JWT token
+if (!config.get('jwtPrivateKey')) {
+    console.error('JWT Private key not available.... Quitting the application');
+    process.exit(1);
+}
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -39,12 +46,6 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.log(`Started server on port ${port}`);
 });
-
-// Checking for JWT token
-if (!config.get('jwtPrivateKey')) {
-    console.error('JWT Private key not available.... Quitting the application');
-    process.exit(1);
-}
 
 app.get('/', (req, res) => {
     res.send(`Welcome to Revista...`);
