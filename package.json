@@ -4,7 +4,8 @@
   "description": "A Journal/App built with MERN stack.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "jest": "^24.8.0",
     "nodemon": "^1.19.1"
   }
 }
