@@ -1,3 +1,4 @@
 {
-    "jwtPrivateKey": ""
+    "jwtPrivateKey": "",
+    "db": "mongodb://karthick:password1@ds237848.mlab.com:37848/revista-notes-db"
 }

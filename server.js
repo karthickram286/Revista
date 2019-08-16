@@ -10,6 +10,8 @@ require('./startup/routes.startup')(app);
 const port = process.env.PORT || 4000;
 
 // Starting server 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     winstonLogger.info(`Started server on port ${port}`);
 });
+
+module.exports = server;

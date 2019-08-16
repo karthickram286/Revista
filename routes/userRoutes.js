@@ -50,7 +50,7 @@ router.post('/signInUser', asyncMiddleware(async (req, res) => {
     }
 
     const token = user.generateAuthToken();
-    res.send(token);
+    res.send({ authToken: token });
 }));
 
 // Getting User Information
