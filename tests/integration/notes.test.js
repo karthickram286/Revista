@@ -4,7 +4,7 @@ let server;
 let token;
 let noteId;
 
-describe('User Rest APIs', () => {
+describe('Note Rest APIs', () => {
 
     beforeEach(() => { 
         server = require('../../server');
