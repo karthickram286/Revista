@@ -53,4 +53,14 @@ describe('User Rest APIs', () => {
             expect(res.status).toBe(200);
         });
     });
+
+    describe('Delete /', () => {
+        it('should delete a note for a given id', async () => {
+            const res = await superTest(server)
+                .delete('/api/notes/deleteNote/' + noteId)
+                .set('x-auth-token', token);
+            
+            expect(res.status).toBe(200);
+        });
+    });
 });
