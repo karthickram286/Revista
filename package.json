@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest --verbose --forceExit --coverage"
+    "test": "jest --verbose --maxWorkers=1 --detectOpenHandles --forceExit --coverage"
   },
   "repository": {
     "type": "git",

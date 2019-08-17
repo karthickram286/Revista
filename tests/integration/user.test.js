@@ -1,5 +1,4 @@
 const superTest = require('supertest');
-const User = require('../../model/user');
 let server;
 let token;
 

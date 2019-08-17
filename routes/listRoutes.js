@@ -8,11 +8,16 @@ const Note = require('../model/note');
 router.post('/addNote', authorize, asyncMiddleware(async (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
-    let saveStatus = await saveNote(title, body);
-    if (saveStatus) {
-        res.send('Note added successfully...');
+    let addedNote = await saveNote(title, body);
+    if (addedNote) {
+        res.send({
+            id: addedNote._id,
+            status: 'Note added successfully...'
+        });
     } else {
-        res.send(`Can't add note`);
+        res.send({ 
+            status: `Can't add note`
+        });
     }
 }));
 
@@ -25,7 +30,7 @@ async function saveNote(title, body) {
         });
         const result = await note.save();
         console.log(result);
-        return true;
+        return result;
     } catch(err) {
         console.log(`Can't add note `, err.message);
         return false;
