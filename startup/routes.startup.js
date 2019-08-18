@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const rateLimit = require('express-rate-limit');
 const listRoutes = require('../routes/listRoutes');
 const userRoutes = require('../routes/userRoutes');
@@ -24,8 +25,12 @@ module.exports = function(app) {
     // Error Middleware
     app.use(errorHandler);
 
-    // Homepage router
-    app.get('/', (req, res) => {
-        res.send(`Welcome to Revista...`);
-    });
+    // Static assets
+    if (process.env.NODE_ENV === 'production') {
+        app.use(express.static('client/build'));
+
+        app.get('*', (req, res) => {
+            res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+        })
+    }
 };

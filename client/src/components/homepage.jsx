@@ -10,7 +10,7 @@ const HomePage = () => {
             <img src={revistaLogo} alt="revista-logo"></img>
             <div className="App-subtitle">A simple journal application</div>
             <Link to="/login" style={{marginRight: 15}} className="btn btn-primary">Login</Link>
-            <Link to="/register" className="btn btn-primary">Sign Up</Link>
+            <Link to="/register" className="btn btn-light">Sign Up</Link>
         </div>
     );
 }
