@@ -9,3 +9,16 @@
   font-size: calc(1px + 2vmin);
   color: white;
 }
+
+.App-subtitle {
+  background-color:white;
+  display: flex;
+  flex-direction: column;
+  font-size: calc(1px + 2vmin);
+  color: black;
+  margin-bottom: 50px;
+}
+
+.a {
+  margin-right: 15px;
+}
