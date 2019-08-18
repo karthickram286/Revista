@@ -2,10 +2,13 @@ const asyncMiddleware = require('../middleware/asyncMiddleware');
 const authorize = require('../middleware/authorize');
 const _ = require('lodash');
 const express = require('express');
+const cors = require('cors');
 const router = express.Router();
 const User = require('../model/user');  
 const passwdValidator = require('password-validator');
 const bcrypt = require('bcrypt');
+
+router.all('*', cors());
 
 // Adding a new User (User Sign Up)
 router.post('/addUser', asyncMiddleware((req, res) => {

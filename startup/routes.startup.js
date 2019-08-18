@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const rateLimit = require('express-rate-limit');
 const listRoutes = require('../routes/listRoutes');
@@ -17,6 +18,8 @@ module.exports = function(app) {
      */
     app.use(express.json());
     app.use(rateLimiter);
+
+    app.use(bodyParser.json());
 
     // Routing
     app.use('/api/notes', listRoutes);

@@ -1,0 +1,12 @@
+  .registerpage {
+    padding: 60px 0;
+  }
+
+  .registerpage form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+
+  .registerpage button {
+      margin-top: 50px;
+  }
