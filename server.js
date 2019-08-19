@@ -4,6 +4,7 @@ const winstonLogger = require('./middleware/winstonLogger');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const os = require('os');
 
 require('./startup/logging.startup')();
 require('./startup/mongoose.startup')();
@@ -11,7 +12,8 @@ require('./startup/config.startup')();
 require('./startup/routes.startup')(app);
 
 const port = process.env.PORT || 4000;
-const domain = window.location.hostname;
+const domain = os.hostname();
+console.log('domain: '+ domain);
 
 const corsOptions = {
     origin: [
@@ -32,7 +34,7 @@ app.get('/new', (req, res) => {
 
 // Starting server 
 const server = app.listen(port, () => {
-    winstonLogger.info(`Started server on port ${port}`);
+    winstonLogger.info(`Started server on port ${port} in host ${domain}`);
 });
 
 module.exports = server;
