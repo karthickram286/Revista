@@ -15,6 +15,7 @@ router.post('/addUser', asyncMiddleware((req, res) => {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
+    console.log('Incoming req :' + res + ' ' + res.body + ' ' + name + ' ' + email + ' ' + password);
     if (!validateEmail(email, res)) {
         return;
     }

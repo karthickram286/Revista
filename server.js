@@ -11,11 +11,14 @@ require('./startup/config.startup')();
 require('./startup/routes.startup')(app);
 
 const port = process.env.PORT || 4000;
+const domain = window.location.hostname;
 
 const corsOptions = {
     origin: [
-      "http://localhost:3000",
-      "http://localhost:3005"
+      "http://" + domain + ":3000",
+      "https://" + domain + ":3000",
+      "http://" + domain,
+      "https://" + domain,
     ],
     preflightContinue: false,
     optionsSuccessStatus: 204
