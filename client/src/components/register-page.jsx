@@ -7,6 +7,7 @@ class RegisterPage extends React.Component {
         super();
 
         this.state = {
+            domain: window.location.hostname,
             name: "",
             email: "",
             password: "",
@@ -31,7 +32,8 @@ class RegisterPage extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
-        fetch('http://localhost:4000/api/user/addUser', {
+
+        fetch('http://' + this.state.domain + '/api/user/addUser', {
             method: 'POST',
             mode: 'no-cors',
             headers: {
