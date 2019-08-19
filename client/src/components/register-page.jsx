@@ -31,13 +31,14 @@ class RegisterPage extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
-        fetch('/user/addUser', {
+        fetch('http://localhost:4000/api/user/addUser', {
             method: 'POST',
-            body: JSON.stringify(userData),
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
-            }
+            },
+            body: JSON.stringify(userData)
         }).then(alert('User added successfully...'));
     }
     
