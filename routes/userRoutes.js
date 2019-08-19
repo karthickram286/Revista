@@ -22,12 +22,22 @@ router.post('/addUser', asyncMiddleware((req, res) => {
     if (!validatePassword(password, res)) {
         return;
     }
+    checkUser(email).then(result => {
+        if (result) {
+            console.log(result);
+            res.status(400).send(
+                {error: 'User already exists'}
+            );
+        }
+    });
     let registeredUser = saveUser(name, email, password);
     registeredUser.then(result => {
                     const token = result.generateAuthToken();
                     res.header('x-auth-token', token).send(_.pick(result, ['_id', 'name', 'email']));
                 }).catch(err => {
-                    res.send(err.message);
+                    res.send({
+                        error: err.message
+                    });
                 });
 }));
 
@@ -78,6 +88,15 @@ async function saveUser(name, email, password) {
     return result;
 }
 
+async function checkUser(email) {
+    const user = await User.findOne({email: email});
+    if (user) {
+        console.log('User with same email-id already exists');
+        return true;
+    }
+    return false;
+}
+
 /**
  * User Validation
  */
@@ -99,7 +118,9 @@ function validateEmail(email, res) {
     let isValidEmail = emailSchema.validate(email);
     if(!isValidEmail) {
         console.log('Invalid Email-Id');
-        res.send(`Email-ID not valid`);
+        res.status(400).send({
+            error: `Email-ID not valid`
+        });
         return false;
     }
     return true;
@@ -108,8 +129,10 @@ function validateEmail(email, res) {
 function validatePassword(password, res) {
     let isValidPassword = passwordSchema.validate(password);
     if (!isValidPassword) {
-        console.log('Invalid Password');
-        res.send(`Password doesn't meet requirements`);
+        console.log('Invalid Password: ' + password);
+        res.status(400).send({
+            error: `Password doesn't meet requirements`
+        });
         return false;
     }
     return true;

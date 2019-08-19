@@ -9,6 +9,7 @@ class RegisterPage extends React.Component {
         this.state = {
             domain: window.location.hostname,
             name: "",
+            nameStatus: "",
             email: "",
             password: "",
             confirmpassword: ""
@@ -23,7 +24,7 @@ class RegisterPage extends React.Component {
         this.setState({
           [event.target.id]: event.target.value
         });
-      }
+    }
     
     handleSubmit = event => {
         event.preventDefault();
@@ -39,7 +40,14 @@ class RegisterPage extends React.Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(userData)
-        }).then(alert('User added successfully...'));
+        }).then(response => response.json())
+            .then(addUser => {
+                if (addUser.error !== undefined) {
+                    this.setState({ nameStatus: addUser.error});
+                } else {
+                    this.setState({ nameStatus: 'User added successfully'});
+                }
+            });
     }
     
     render() {
@@ -84,6 +92,9 @@ class RegisterPage extends React.Component {
                         />
                     </FormGroup>
 
+                    <FormGroup>
+                        <FormLabel>{ this.state.nameStatus }</FormLabel>
+                    </FormGroup>
                     <Button
                         block
                         disabled={ !this.validateForm() }
