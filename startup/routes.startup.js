@@ -20,6 +20,7 @@ module.exports = function(app) {
     app.use(rateLimiter);
 
     app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
 
     // Routing
     app.use('/api/notes', listRoutes);
