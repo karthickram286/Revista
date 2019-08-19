@@ -33,7 +33,7 @@ class RegisterPage extends React.Component {
             password: this.state.password
         }
 
-        fetch('http://' + this.state.domain + '/api/user/addUser', {
+        fetch('https://' + this.state.domain + '/api/user/addUser', {
             method: 'POST',
             mode: 'no-cors',
             headers: {
