@@ -35,10 +35,8 @@ class RegisterPage extends React.Component {
 
         fetch('https://' + this.state.domain + '/api/user/addUser', {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify(userData)
         }).then(alert('User added successfully...'));
