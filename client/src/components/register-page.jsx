@@ -38,7 +38,7 @@ class RegisterPage extends React.Component {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             }
-        }).then(alert('Note added successfully...'));
+        }).then(alert('User added successfully...'));
     }
     
     render() {
