@@ -28,6 +28,7 @@ router.post('/addUser', asyncMiddleware((req, res) => {
             res.status(400).send(
                 {error: 'User already exists'}
             );
+            return;
         }
     });
     let registeredUser = saveUser(name, email, password);
