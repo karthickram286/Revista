@@ -31,14 +31,14 @@ class RegisterPage extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json',);
-        headers.append('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDUyMGVlNDQ4NzlhMTY2ODQwNzQwMTYiLCJpYXQiOjE1NjU2NTg4NTJ9.19F1AGzV1IxFgBUOh6k8lcWRG95gYV56gtRgVJCkFpc');
         fetch('http://localhost:4000/api/user/addUser', {
             method: 'POST',
             body: JSON.stringify(userData),
-            headers: headers
-        });
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }).then(alert('Note added successfully...'));
     }
     
     render() {
