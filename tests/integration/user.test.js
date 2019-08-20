@@ -28,5 +28,13 @@ describe('User Rest APIs', () => {
             
             expect(res.status).toBe(200);
         });
+
+        it('should delete a user for given email', async() => {
+            const res = await superTest(server)
+                .delete('/api/user/deleteUser')
+                .send({ email: 'testUser@gmail.com' });
+            
+            expect(res.status).toBe(200);
+        })
     });
 });

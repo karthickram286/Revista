@@ -69,9 +69,14 @@ router.post('/signInUser', asyncMiddleware(async (req, res) => {
     res.send({ authToken: token });
 }));
 
-// TODO (for tests)
+// Delete user
 router.delete('/deleteUser', async (req, res) => {
+    let email = req.body.email;
 
+    let deleteStatus = await  User.deleteOne({ email: email});
+    if (deleteStatus) {
+        res.send(`User deleted successfully`);
+    }
 });
 
 // Getting User Information
