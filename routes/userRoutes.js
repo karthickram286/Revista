@@ -11,7 +11,7 @@ const bcrypt = require('bcrypt');
 router.all('*', cors());
 
 // Adding a new User (User Sign Up)
-router.post('/addUser', asyncMiddleware((req, res) => {
+router.post('/addUser', asyncMiddleware( async (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
@@ -22,24 +22,25 @@ router.post('/addUser', asyncMiddleware((req, res) => {
     if (!validatePassword(password, res)) {
         return;
     }
-    checkUser(email).then(result => {
-        if (result) {
-            console.log(result);
-            res.status(400).send(
-                {error: 'User already exists'}
-            );
-            return;
-        }
-    });
-    let registeredUser = saveUser(name, email, password);
-    registeredUser.then(result => {
-                    const token = result.generateAuthToken();
-                    res.header('x-auth-token', token).send(_.pick(result, ['_id', 'name', 'email']));
-                }).catch(err => {
-                    res.send({
-                        error: err.message
-                    });
-                });
+    let userExists = false;
+    let checkUserResult = await checkUser(email);
+    if (checkUserResult) {
+        userExists = true;
+        return res.status(400).send(
+            {error: 'User already exists'}
+        );
+    }
+    if (!userExists) {
+        let registeredUser = saveUser(name, email, password);
+        registeredUser.then(result => {
+            const token = result.generateAuthToken();
+            res.header('x-auth-token', token).send(_.pick(result, ['_id', 'name', 'email']));
+        }).catch(err => {
+            res.send({
+                error: err.message
+            });
+        });
+    }
 }));
 
 // Authenticating User (User Sign in)
@@ -67,6 +68,11 @@ router.post('/signInUser', asyncMiddleware(async (req, res) => {
     const token = user.generateAuthToken();
     res.send({ authToken: token });
 }));
+
+// TODO (for tests)
+router.delete('/deleteUser', async (req, res) => {
+
+});
 
 // Getting User Information
 router.get('/me', authorize, asyncMiddleware(async (req, res) => {

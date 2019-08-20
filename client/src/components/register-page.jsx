@@ -34,6 +34,11 @@ class RegisterPage extends React.Component {
             password: this.state.password
         }
 
+        if (this.state.password !== this.state.confirmpassword) {
+            this.setState({ nameStatus: `Passwords didn't match`});
+            return;
+        }
+
         fetch('https://' + this.state.domain + '/api/user/addUser', {
             method: 'POST',
             headers: {
