@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 
-import './styles/login-page.css';
+import './styles/notes.css';
 
 class Notes extends React.Component {
     constructor() {
