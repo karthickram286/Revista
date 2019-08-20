@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 
 import './styles/login-page.css';
+import { sign } from 'crypto';
 
 class LoginPage extends React.Component {
     constructor() {
@@ -42,11 +43,20 @@ class LoginPage extends React.Component {
         }).then(response => response.json())
             .then(signInUser => {
                 if (signInUser.authToken !== undefined) {
-                    this.setState({ status: 'Successfully signed in...' })
+                    this.setState({ status: 'Successfully signed in...' });
+                    this.setCookie(signInUser.authToken);
+                    alert(document.cookie);
                 } else {
                     this.setState({ status: signInUser.error})
                 }
             })
+    }
+
+    setCookie(authToken) {
+        var d = new Date();
+        d.setTime(d.getTime() + (60 * 1000)); // 1 hr
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = "authToken" + "=" + authToken + ";" + expires + ";path=/";
     }
     
     render() {
