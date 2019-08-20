@@ -8,6 +8,7 @@ import Footer from './components/footer';
 import HomePage from './components/homepage';
 import LoginPage from './components/login-page';
 import RegisterPage from './components/register-page';
+import Notes from './components/notes';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route exact path="/home" component= { HomePage } />
             <Route exact path="/login" component= { LoginPage } />
             <Route exact path="/register" component= { RegisterPage } />
+            <Route exact path="/notes" component= { Notes } />
           </Switch>
         <Footer content="copyright @copy 2018 Revista.inc" />
       </div>

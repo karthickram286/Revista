@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 
 import './styles/login-page.css';
-import { sign } from 'crypto';
 
 class LoginPage extends React.Component {
     constructor() {
@@ -25,7 +24,7 @@ class LoginPage extends React.Component {
           [event.target.id]: event.target.value,
           status: ''
         });
-      }
+    }
     
     handleSubmit = event => {
         event.preventDefault();
