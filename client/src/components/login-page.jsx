@@ -8,8 +8,10 @@ class LoginPage extends React.Component {
         super();
 
         this.state = {
+            domain: window.location.hostname,
             email: "",
-            password: ""
+            password: "",
+            status: "",
         };
     }
 
@@ -19,12 +21,32 @@ class LoginPage extends React.Component {
 
     handleChange = event => {
         this.setState({
-          [event.target.id]: event.target.value
+          [event.target.id]: event.target.value,
+          status: ''
         });
       }
     
     handleSubmit = event => {
         event.preventDefault();
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
+        }
+
+        fetch('https://' + this.state.domain + '/api/user/signInUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData)
+        }).then(response => response.json())
+            .then(signInUser => {
+                if (signInUser.authToken !== undefined) {
+                    this.setState({ status: 'Successfully signed in...' })
+                } else {
+                    this.setState({ status: signInUser.error})
+                }
+            })
     }
     
     render() {
@@ -48,6 +70,10 @@ class LoginPage extends React.Component {
                             value={ this.state.password }
                             onChange= { this.handleChange }
                         />
+                    </FormGroup>
+
+                    <FormGroup>
+                        <FormLabel>{ this.state.status }</FormLabel>
                     </FormGroup>
 
                     <Button
