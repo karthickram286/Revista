@@ -44,7 +44,6 @@ class LoginPage extends React.Component {
                 if (signInUser.authToken !== undefined) {
                     this.setState({ status: 'Successfully signed in...' });
                     this.setCookie(signInUser.authToken);
-                    alert(document.cookie);
                 } else {
                     this.setState({ status: signInUser.error})
                 }

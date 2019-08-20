@@ -1,8 +1,11 @@
 const asyncMiddleware = require('../middleware/asyncMiddleware');
 const authorize = require('../middleware/authorize');
 const express = require('express');
+const cors = require('cors');
 const router = express.Router();
 const Note = require('../model/note');
+
+router.all('*', cors());
 
 // Adding a new note
 router.post('/addNote', authorize, asyncMiddleware(async (req, res) => {

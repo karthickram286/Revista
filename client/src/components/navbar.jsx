@@ -9,7 +9,8 @@ class Navbar extends Component {
         super();
 
         this.state = {
-
+            isUsedSignedIn: document.cookie.split('=')[1],
+            
         };
     }
 
