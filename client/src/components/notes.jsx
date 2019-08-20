@@ -8,10 +8,10 @@ class Notes extends React.Component {
         super();
 
         this.state = {
-            isUsedSigned = document.cookie.authToken,
-            noteTitle = '',
-            noteBody = '',
-            status
+            isUsedSigned: document.cookie.authToken,
+            noteTitle: '',
+            noteBody: '',
+            status: ''
         }
     }
 
