@@ -15,6 +15,13 @@ class Notes extends React.Component {
         }
     }
 
+    handleChange = event => {
+        this.setState({
+          [event.target.id]: event.target.value,
+          status: ''
+        });
+    }
+
     validateForm() {
         return this.state.noteTitle.length > 0 && this.state.noteBody.length > 0;
     }
@@ -47,6 +54,7 @@ class Notes extends React.Component {
                             autoFocus
                             type="text"
                             value={ this.state.noteTitle }
+                            onChange= { this.handleChange }
                         />
                     </FormGroup>
 
@@ -56,6 +64,7 @@ class Notes extends React.Component {
                             autoFocus
                             type="text"
                             value={ this.state.noteBody }
+                            onChange= { this.handleChange }
                         />
                     </FormGroup>
 
