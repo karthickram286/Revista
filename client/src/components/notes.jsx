@@ -48,12 +48,11 @@ class Notes extends React.Component {
             title: this.state.noteTitle,
             body: this.state.noteBody
         }
-        console.log('status: ' + this.state.isUsedSignedIn);
         if (this.state.isUsedSignedIn === true) {
-            console.log('User Signed in ' + this.state.noteTitle);
-            fetch('https://' + this.state.domain + '/api/note/addNote', {
+            fetch('https://' + this.state.domain + '/api/notes/addNote', {
                 method: 'POST',
                 headers: {
+                    'x-auth-token': this.state.authToken,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(noteData)
@@ -64,11 +63,10 @@ class Notes extends React.Component {
                     } else {
                         this.setState({ status: addNote.status});
                     }
-                }).catch(() => {
-                    this.setState({ status: `Can't access. Blocked by browser`});
-                })
+                }).catch((err) => {
+                        this.setState({ status: `Can't access...Authentication token not provided` });
+                });
         } else {
-            console.log('User not signed in');
             this.setState({ status : 'Log in to add note'});
         }
     }

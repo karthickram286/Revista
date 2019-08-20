@@ -52,9 +52,9 @@ class LoginPage extends React.Component {
 
     setCookie(authToken) {
         var d = new Date();
-        d.setTime(d.getTime() + (60 * 1000)); // 1 hr
+        d.setTime(d.getTime() + (60 * 60 * 1000)); // 1 hr
         var expires = "expires="+ d.toUTCString();
-        document.cookie = "authToken" + "=" + authToken + ";" + expires + ";path=/";
+        document.cookie = "authToken=" + authToken + ";" + expires + ";path=/";
     }
     
     render() {
