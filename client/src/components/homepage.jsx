@@ -15,7 +15,7 @@ class HomePage extends React.Component {
         }
     }
 
-    removeAuthToken() {
+    removeAuthToken = () => {
         var expires = "expires=Thu, 01 Jan 1970 00:00:01 GMT";
         document.cookie = "authToken=" + this.state.authToken + ";" + expires + ";path=/";
         this.forceUpdate();

@@ -10,19 +10,28 @@ class Navbar extends Component {
 
         this.state = {
             isUsedSignedIn: document.cookie.split('=')[1],
-            
+
         };
     }
 
     render() {
-        return (
-             <div className="topnav">
-                 <NavIcon name="Home" status="active" />
-                 <NavIcon name="Login" status="" />
-                 <NavIcon name="Register" status="" />
-                 <NavIcon name="Notes" status="" />
-             </div>
-        );
+        if (this.state.isUsedSignedIn !== undefined) {
+            return (
+                <div className="topnav">
+                    <NavIcon name="Home" status="active" />
+                    <NavIcon name="Notes" status="" />
+                </div>
+           );
+        } else {
+            return (
+                <div className="topnav">
+                    <NavIcon name="Home" status="active" />
+                    <NavIcon name="Login" status="" />
+                    <NavIcon name="Register" status="" />
+                    <NavIcon name="Notes" status="" />
+                </div>
+           );
+        }
     }
 }
 
