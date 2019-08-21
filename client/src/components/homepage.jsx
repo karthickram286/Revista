@@ -5,7 +5,7 @@ import revistaLogo from './styles/revista-logo.png'
 import '../App.css'
 
 const HomePage = () => {
-    let authToken = document.cookie.authToken;
+    let authToken = document.cookie.split('=')[1];
     if (authToken !== undefined) {
         return (
             <div className="homepage">
