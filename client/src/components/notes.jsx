@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 
+import { NoteList } from './note-list.component';
+
 import './styles/notes.css';
 
 class Notes extends React.Component {
@@ -13,8 +15,19 @@ class Notes extends React.Component {
             isUsedSignedIn: this.getUserSignedIn(),
             noteTitle: '',
             noteBody: '',
-            status: ''
+            status: '',
+            notes: [
+
+            ]
         }
+    }
+
+    componentDidMount() {
+        fetch('https://' + this.state.domain + '/api/notes/getAllNotes')
+            .then(response => response.json())
+            .then(allNotes => {
+                this.setState( { notes: allNotes });
+            });
     }
 
     getUserSignedIn() {
@@ -107,8 +120,12 @@ class Notes extends React.Component {
                         Add
                     </Button>
                 </form>
+
+                <div className="note-list">
+                    <NoteList notes={ this.state.notes } />
+                </div>
             </div>
-        )
+        );
     }
 }
 
