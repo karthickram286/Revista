@@ -12,7 +12,21 @@ import Notes from './components/notes';
 
 
 function App() {
-  return (
+  let authToken = document.cookie.split('=')[1];
+  if (authToken !== undefined) {
+    return (
+      <div className="App">
+        <Navbar />
+          <Switch>
+            <Route exact path="/" component= { HomePage } />
+            <Route exact path="/home" component= { HomePage } />
+            <Route exact path="/notes" component= { Notes } />
+          </Switch>
+        <Footer content="copyright @copy 2018 Revista.inc" />
+      </div>
+    );
+  } else {
+    return (
       <div className="App">
         <Navbar />
           <Switch>
@@ -24,7 +38,8 @@ function App() {
           </Switch>
         <Footer content="copyright @copy 2018 Revista.inc" />
       </div>
-  );
+    );
+  }
 }
 
 export default App;
