@@ -23,8 +23,12 @@ class Notes extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://' + this.state.domain + '/api/notes/getAllNotes')
-            .then(response => response.json())
+        fetch('https://' + this.state.domain + '/api/notes/getAllNotes', {
+            method: 'GET',
+                headers: {
+                    'x-auth-token': this.state.authToken,
+                },
+        }).then(response => response.json())
             .then(allNotes => {
                 this.setState( { notes: allNotes });
             });
