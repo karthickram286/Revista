@@ -18,19 +18,34 @@ class HomePage extends React.Component {
     removeAuthToken = () => {
         var expires = "expires=Thu, 01 Jan 1970 00:00:01 GMT";
         document.cookie = "authToken=" + this.state.authToken + ";" + expires + ";path=/";
-        this.forceUpdate();
+        sessionStorage.removeItem('clickToContinue');
+        window.location.reload();
+    }
+
+    reloadPage = () => {
+        sessionStorage.setItem('clickToContinue', 'true');
+        window.location.reload();
     }
 
     render() {
         if (this.state.authToken !== undefined) {
-            return (
-                <div className="homepage">
-                    <h3>Welcome to Revista</h3><br/>
-                    <Button onClick={ this.removeAuthToken }>new Logout</Button>
-                    <Link to="/logout" style={{marginRight: 15}} className="btn btn-primary">Logout</Link>
-                    <Link to="/notes" className="btn btn-light">Notes</Link>
-                </div>
-            );
+            console.log(sessionStorage.getItem('clickToContinue'));
+            if (sessionStorage.getItem('clickToContinue') === 'true') {
+                return (
+                    <div className="homepage">
+                        <h3>Welcome to Revista</h3><br/>
+                        <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.removeAuthToken }>Logout</Button>
+                        <Link to="/notes" className="btn btn-light">Notes</Link>
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="homepage">
+                        <h3>Welcome to Revista</h3><br/>
+                        <Button className="btn btn-success" onClick={ this.reloadPage }>Click to continue</Button>
+                    </div>
+                );
+            }
         } else {
             return (
                 <div className="homepage">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 
 import './styles/login-page.css';
@@ -7,12 +8,19 @@ class LoginPage extends React.Component {
     constructor() {
         super();
 
+        this.routeChange = this.routeChange.bind(this);
+
         this.state = {
             domain: window.location.hostname,
             email: "",
             password: "",
             status: "",
         };
+    }
+
+    routeChange() {
+        let path='';
+        this.props.history.push(path);
     }
 
     validateForm() {
@@ -44,6 +52,7 @@ class LoginPage extends React.Component {
                 if (signInUser.authToken !== undefined) {
                     this.setState({ status: 'Successfully signed in...' });
                     this.setCookie(signInUser.authToken);
+                    this.routeChange();
                 } else {
                     this.setState({ status: signInUser.error})
                 }
@@ -97,4 +106,4 @@ class LoginPage extends React.Component {
     }
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

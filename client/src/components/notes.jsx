@@ -23,15 +23,17 @@ class Notes extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://' + this.state.domain + '/api/notes/getAllNotes', {
-            method: 'GET',
-                headers: {
-                    'x-auth-token': this.state.authToken,
-                },
-        }).then(response => response.json())
-            .then(allNotes => {
-                this.setState( { notes: allNotes });
-            });
+        if (this.state.isUsedSignedIn === true) {
+            fetch('https://' + this.state.domain + '/api/notes/getAllNotes', {
+                method: 'GET',
+                    headers: {
+                        'x-auth-token': this.state.authToken,
+                    },
+            }).then(response => response.json())
+                .then(allNotes => {
+                    this.setState( { notes: allNotes });
+                });
+        }
     }
 
     getUserSignedIn() {
@@ -104,7 +106,9 @@ class Notes extends React.Component {
 
                     <FormGroup controlId="noteBody">
                         <FormLabel color="blue">Body</FormLabel>
-                        <FormControl
+                        <FormControl 
+                            as="textarea" 
+                            rows="5"
                             autoFocus
                             type="text"
                             value={ this.state.noteBody }
