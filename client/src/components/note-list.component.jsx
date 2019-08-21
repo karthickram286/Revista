@@ -6,9 +6,9 @@ export const NoteList = (props) => {
     return(
         <div className="note-list">
             {
-                props.notes.map(note => {
-                    <NoteComponent key={ note.id } note={ note }></NoteComponent>
-                })
+                props.notes.map(note => (
+                    <NoteComponent key={ note.id } note={ note } />
+                ))
             }
         </div>
     );
