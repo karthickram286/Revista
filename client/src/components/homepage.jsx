@@ -21,8 +21,12 @@ class HomePage extends React.Component {
         var expires = "expires=Thu, 01 Jan 1970 00:00:01 GMT";
         document.cookie = "authToken=" + this.state.authToken + ";" + expires + ";path=/";
         sessionStorage.removeItem('clickToContinue');
-        sessionStorage.setItem('isLogout', true);
         this.routeChange();
+    }
+
+    logoutPrompt = () => {
+        sessionStorage.setItem('isLogout', true);
+        window.location.reload();
     }
 
     routeChange() {
