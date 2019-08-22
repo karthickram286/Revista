@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import revistaLogo from './styles/revista-logo.png'
 import '../App.css'
@@ -8,6 +8,8 @@ import { Button } from 'react-bootstrap';
 class HomePage extends React.Component {
     constructor() {
         super();
+
+        this.routeChange = this.routeChange.bind(this);
 
         this.state = {
             domain: window.location.hostname,
@@ -19,7 +21,12 @@ class HomePage extends React.Component {
         var expires = "expires=Thu, 01 Jan 1970 00:00:01 GMT";
         document.cookie = "authToken=" + this.state.authToken + ";" + expires + ";path=/";
         sessionStorage.removeItem('clickToContinue');
-        window.location.reload();
+        this.routeChange();
+    }
+
+    routeChange() {
+        let path='';
+        this.props.history.push(path);
     }
 
     reloadPage = () => {
@@ -59,4 +66,4 @@ class HomePage extends React.Component {
     }
 }
  
-export default HomePage;
+export default withRouter(HomePage);
