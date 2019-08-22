@@ -1,0 +1,13 @@
+.note-container {
+    display: flex;
+    flex-direction: column;
+    background-color:white;
+    border: 1px solid #2a88ed;
+    border-radius: 4px;
+    padding: 20px;
+    cursor: pointer;
+    -moz-osx-font-something: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.25 ease-out;
+}

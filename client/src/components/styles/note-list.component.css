@@ -1,0 +1,9 @@
+.note-list {
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 25px;
+    padding: auto;
+}

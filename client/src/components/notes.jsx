@@ -92,42 +92,44 @@ class Notes extends React.Component {
 
     render() {
         return(
-            <div className="notes-page">
-                <form onSubmit= { this.handleSubmit }>
-                    <FormGroup controlId="noteTitle">
-                        <FormLabel color="blue">Title</FormLabel>
-                        <FormControl
-                            autoFocus
-                            type="text"
-                            value={ this.state.noteTitle }
-                            onChange= { this.handleChange }
-                        />
-                    </FormGroup>
+            <div>
+                <div className="notes-page">
+                    <form onSubmit= { this.handleSubmit }>
+                        <FormGroup controlId="noteTitle">
+                            <FormLabel color="blue">Title</FormLabel>
+                            <FormControl
+                                autoFocus
+                                type="text"
+                                value={ this.state.noteTitle }
+                                onChange= { this.handleChange }
+                            />
+                        </FormGroup>
 
-                    <FormGroup controlId="noteBody">
-                        <FormLabel color="blue">Body</FormLabel>
-                        <FormControl 
-                            as="textarea" 
-                            rows="5"
-                            autoFocus
-                            type="text"
-                            value={ this.state.noteBody }
-                            onChange= { this.handleChange }
-                        />
-                    </FormGroup>
+                        <FormGroup controlId="noteBody">
+                            <FormLabel color="blue">Body</FormLabel>
+                            <FormControl 
+                                as="textarea" 
+                                rows="5"
+                                autoFocus
+                                type="text"
+                                value={ this.state.noteBody }
+                                onChange= { this.handleChange }
+                            />
+                        </FormGroup>
 
-                    <FormGroup>
-                        <FormLabel>{ this.state.status }</FormLabel>
-                    </FormGroup>
+                        <FormGroup>
+                            <FormLabel>{ this.state.status }</FormLabel>
+                        </FormGroup>
 
-                    <Button
-                        block
-                        disabled={ !this.validateForm() }
-                        type="submit"
-                    >
-                        Add
-                    </Button>
-                </form>
+                        <Button
+                            block
+                            disabled={ !this.validateForm() }
+                            type="submit"
+                        >
+                            Add
+                        </Button>
+                    </form>
+                </div>
 
                 <div className="note-list">
                     <NoteList notes={ this.state.notes } />
