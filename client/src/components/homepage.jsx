@@ -21,6 +21,7 @@ class HomePage extends React.Component {
         var expires = "expires=Thu, 01 Jan 1970 00:00:01 GMT";
         document.cookie = "authToken=" + this.state.authToken + ";" + expires + ";path=/";
         sessionStorage.removeItem('clickToContinue');
+        sessionStorage.setItem('isLogout', true);
         this.routeChange();
     }
 
@@ -34,6 +35,16 @@ class HomePage extends React.Component {
         window.location.reload();
     }
 
+    noLogout = () => {
+        sessionStorage.removeItem('isLogout');
+        window.location.reload();
+    }
+
+    yesLogout = () => {
+        sessionStorage.removeItem('isLogout');
+        this.removeAuthToken();
+    }
+
     render() {
         if (this.state.authToken !== undefined) {
             console.log(sessionStorage.getItem('clickToContinue'));
@@ -45,7 +56,17 @@ class HomePage extends React.Component {
                         <Link to="/notes" className="btn btn-light">Notes</Link>
                     </div>
                 );
-            } else {
+            } else if (sessionStorage.getItem('isLogout') === 'true') {
+                return (
+                    <div className="homepage">
+                        <h3>Are you sure you want to Logout?</h3><br/>
+                        <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.yesLogout }>Yes</Button>
+                        <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.noLogout }>No</Button>
+                        <Link to="/notes" className="btn btn-light">Notes</Link>
+                    </div>
+                );
+            }
+            else {
                 return (
                     <div className="homepage">
                         <h3>Welcome to Revista</h3><br/>
