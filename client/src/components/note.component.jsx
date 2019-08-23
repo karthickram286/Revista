@@ -5,7 +5,7 @@ import { Card } from 'react-bootstrap';
 import './styles/note.component.css';
 
 export const NoteComponent = (props) => {
-    console.log(props.note);
+    let lastModified = new Date(props.note.lastModified);
     return (
         <div className="noteCard">
             <Card bg="light">
@@ -14,7 +14,7 @@ export const NoteComponent = (props) => {
                     <Card.Text>{ props.note.body }</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">Last Modified: { props.note.lastModified }</small>
+                    <small className="text-muted">Last Modified: { lastModified }</small>
                 </Card.Footer>
             </Card>
         </div>
