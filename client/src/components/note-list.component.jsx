@@ -6,7 +6,7 @@ import './styles/note-list.component.css'
 
 export const NoteList = (props) => {
     return(
-        <div className="notes">
+        <div className="note-list">
             {
                 props.notes.map(note => (
                     <NoteComponent key={ note._id } note={ note } />
