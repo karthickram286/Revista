@@ -8,14 +8,11 @@ export const NoteComponent = (props) => {
     console.log(props.note);
     return (
         <div className="noteCard">
-            <Card bg="info">
+            <Card bg="light">
                 <Card.Header as="h4">{ props.note.title }</Card.Header>
                 <Card.Body>
                     <Card.Text>{ props.note.body }</Card.Text>
                 </Card.Body>
-                <Card.Footer>
-                    <small className="text-muted">Date Created: { props.note.dateCreated }</small>
-                </Card.Footer>
                 <Card.Footer>
                     <small className="text-muted">Last Modified: { props.note.lastModified }</small>
                 </Card.Footer>
