@@ -61,7 +61,6 @@ class HomePage extends React.Component {
                         <h3>Are you sure you want to Logout?</h3><br/>
                         <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.yesLogout }>Yes</Button>
                         <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.noLogout }>No</Button>
-                        <Link to="/notes" className="btn btn-light">Notes</Link>
                     </div>
                 );
             }
