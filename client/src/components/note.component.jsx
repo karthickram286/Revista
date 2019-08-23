@@ -9,14 +9,15 @@ export const NoteComponent = (props) => {
     console.log(props.note);
     return (
         <div className="noteCard">
-            <Card>
-                <Card.Header as="h4">{ props.note.title }</Card.Header>
+            <Card style={{ width: '18rem' }}>
+                <Card.Header as="h4" bg="info">{ props.note.title }</Card.Header>
                 <Card.Body>
                     <Card.Text>{ props.note.body }</Card.Text>
                 </Card.Body>
-                <Footer>
-                    { props.note.dateCreated }
-                </Footer>
+                <Card.Footer>
+                    <small className="text-muted">{ props.note.dateCreated }</small>
+                    <small className="text-muted">{ props.note.lastModified }</small>
+                </Card.Footer>
             </Card>
         </div>
     );
