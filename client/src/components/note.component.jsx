@@ -6,9 +6,9 @@ import './styles/note.component.css';
 import Footer from './footer';
 
 export const NoteComponent = (props) => {
-    let i = 0;
+    console.log(props.note);
     return (
-        <div className="note-container">
+        <div className="noteCard">
             <Card>
                 <Card.Header as="h4">{ props.note.title }</Card.Header>
                 <Card.Body>
@@ -18,8 +18,6 @@ export const NoteComponent = (props) => {
                     { props.note.dateCreated }
                 </Footer>
             </Card>
-            <h3 className="note-title" key={ ++i }>{ props.note.title }</h3>
-            <p className="note-body" key={ ++i }>{ props.note.body }</p>
         </div>
     );
 }
