@@ -37,7 +37,6 @@ async function saveNote(userId, title, body, modifiedTime) {
             lastModified: modifiedTime
         });
         const result = await note.save();
-        console.log(result);
         return result;
     } catch(err) {
         console.log(`Can't add note `, err.message);
@@ -81,10 +80,10 @@ router.post('/updateNote/:id', authorize, asyncMiddleware(async (req, res) => {
                 lastModified: modifiedTime
             }
         });
-        res.status(200).send('Note updated successfully');
+        res.status(200).send({ status: 'Note updated successfully' });
     } catch(err) {
         console.log(`Can't update note. Reason: ` + err.message);
-        res.status(500).send(`Can't update note`);
+        res.status(500).send({ status: `Can't update note` });
     }
 }));
 
@@ -94,10 +93,10 @@ router.delete('/deleteNote/:id', authorize, asyncMiddleware(async (req, res) => 
     let id = req.params.id;
     try {
         await Note.findOneAndDelete({ userId: userId,  _id: id });
-        res.status(200).send('Note deleted successfully');
+        res.status(200).send({ status: 'Note deleted successfully' });
     } catch (err) {
         console.log(`Can't delete note. Reason: ` + err.message);
-        res.status(500).send(`Can't delete note.`);
+        res.status(500).send({ status: `Can't delete note.` });
     }
 }));
 

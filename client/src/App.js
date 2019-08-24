@@ -9,6 +9,7 @@ import HomePage from './components/homepage';
 import LoginPage from './components/login-page';
 import RegisterPage from './components/register-page';
 import Notes from './components/notes';
+import NoteEdit from './components/note-edit';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route exact path="/" component= { HomePage } />
             <Route exact path="/home" component= { HomePage } />
             <Route exact path="/notes" component= { Notes } />
+            <Route exact path="/noteEdit/:noteId" component = { NoteEdit } />
           </Switch>
         <Footer content="copyright @copy 2018 Revista.inc" />
       </div>

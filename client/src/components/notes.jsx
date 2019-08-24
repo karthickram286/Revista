@@ -32,10 +32,10 @@ class Notes extends React.Component {
         if (this.state.isUsedSignedIn === true) {
             fetch(url, {
                 method: 'GET',
-                    headers: {
-                        'x-auth-token': this.state.authToken,
-                        'x-user-id': localStorage.getItem('userId')
-                    }
+                headers: {
+                    'x-auth-token': this.state.authToken,
+                    'x-user-id': localStorage.getItem('userId')
+                }
             }).then(response => response.json())
                 .then(allNotes => {
                     this.setState( { notes: allNotes });

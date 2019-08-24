@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Card } from 'react-bootstrap';
 
@@ -9,13 +10,25 @@ class NoteComponent extends React.Component {
     state = {
         domain: window.location.hostname,
         cardHover: false,
+        authToken: document.cookie.split('=')[1],
+        isUsedSignedIn: this.getUserSignedIn(),
         title: this.props.note.title,
         body: this.props.note.body,
         noteId: this.props.note._id,
-        userId: localStorage.getItem('userId')
+        userId: localStorage.getItem('userId'),
+        editLink: {
+            pathName: "/noteEdit/" + this.props.note._id
+        }
     }
 
-     // Referred from 
+    getUserSignedIn() {
+        if (document.cookie.split('=')[1] !== undefined) {
+            return true;
+        }
+        return false;
+    }
+
+    // Referred from 
     // https://stackoverflow.com/questions/6108819/javascript-timestamp-to-relative-time-eg-2-seconds-ago-one-week-ago-etc-best
     getLastModifiedTime = (current, previous) => {
         let msPerMinute = 60 * 1000;
@@ -51,12 +64,59 @@ class NoteComponent extends React.Component {
         }
     }
 
-    editNote = () => {
-        alert('edit clicked');
+    getNoteValues = () => {
+        let url = '';
+        if (this.state.domain === 'localhost') {
+            url = 'http://localhost:4000/api/notes/getNote/' + this.props.match.params.noteId;
+        } else {
+            url = 'https://' + this.state.domain + '/api/notes/getNote/' + this.props.match.params.noteId;
+        }   
+        if (this.state.isUsedSignedIn === true) {
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'x-auth-token': this.state.authToken,
+                    'x-user-id': localStorage.getItem('userId'),
+                    'Content-Type': 'application/json',
+                }, 
+            }).then(response => response.json())
+                .then(note => {
+                    this.setState({ noteTitle: note.title, noteBody: note.body });
+                })
+                .catch((err) =>  {
+                    alert(`Can't get note details.`);
+                });
+            }
     }
 
     deleteNote = () => {
-        alert('delete clicked');
+        let deleteNoteData = {
+            userId: localStorage.getItem('userId'),
+        }
+
+        let url = '';
+        if (this.state.domain === 'localhost') {
+            url = 'http://localhost:4000/api/notes/deleteNote/' + this.state.noteId;
+        } else {
+            url = 'https://' + this.state.domain + '/api/notes/deleteNote/' + this.state.noteId;
+        }   
+        if (this.state.isUsedSignedIn === true) {
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'x-auth-token': this.state.authToken,
+                    'Content-Type': 'application/json',
+                }, 
+                body: JSON.stringify(deleteNoteData)
+            }).then(response => response.json())
+                    .then(updateNote => {
+                        alert(updateNote.status);
+                    }).catch((err) => {
+                        alert(`Can't update note`);
+                    });;
+        } else {
+            alert('User not signed in')
+        }
     }
 
     cardMouseEnter = () => {
@@ -70,6 +130,7 @@ class NoteComponent extends React.Component {
     render() {
         return (
             <div className="noteCard">
+
                 <Card border="primary" bg="light" onMouseEnter={ this.cardMouseEnter } onMouseLeave= { this.cardMouseLeave }>
                     <Card.Header as="h4">
                         <strong>
@@ -78,7 +139,9 @@ class NoteComponent extends React.Component {
                         {   
                             this.state.cardHover ?
                                 <small>
-                                    <span className="pencil glyphicon glyphicon-pencil" onClick={this.editNote}></span> 
+                                    <Link to={ this.state.editLink.pathName } >
+                                        <span className="pencil glyphicon glyphicon-pencil"></span>
+                                    </Link>
                                     <span className="pencil glyphicon glyphicon-trash" onClick={this.deleteNote}></span>
                                 </small>
                              : ""   

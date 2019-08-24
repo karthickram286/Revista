@@ -47,7 +47,6 @@ class HomePage extends React.Component {
 
     render() {
         if (this.state.authToken !== undefined) {
-            console.log(sessionStorage.getItem('clickToContinue'));
             if (sessionStorage.getItem('clickToContinue') === 'true') {
                 return (
                     <div className="homepage">
@@ -74,6 +73,8 @@ class HomePage extends React.Component {
                 );
             }
         } else {
+            localStorage.removeItem('userId');
+            sessionStorage.removeItem('clickToContinue');
             return (
                 <div className="homepage">
                     <img src={revistaLogo} alt="revista-logo"></img>
