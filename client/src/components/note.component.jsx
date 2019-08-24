@@ -4,11 +4,21 @@ import { Card } from 'react-bootstrap';
 
 import './styles/note.component.css';
 
-export const NoteComponent = (props) => {
+class NoteComponent extends React.Component {
 
-    // Referred from 
+    constructor() {
+        super();
+
+        this.state = {
+            domain: window.location.hostname,
+            cardHover: false,
+            
+        }
+    }
+
+     // Referred from 
     // https://stackoverflow.com/questions/6108819/javascript-timestamp-to-relative-time-eg-2-seconds-ago-one-week-ago-etc-best
-    let getLastModifiedTime = (current, previous) => {
+    getLastModifiedTime = (current, previous) => {
         let msPerMinute = 60 * 1000;
         let msPerHour = msPerMinute * 60;
         let msPerDay = msPerHour * 24;
@@ -42,17 +52,51 @@ export const NoteComponent = (props) => {
         }
     }
 
-    return (
-        <div className="noteCard">
-            <Card border="primary" bg="light">
-                <Card.Header as="h4">{ props.note.title }</Card.Header>
-                <Card.Body>
-                    <Card.Text>{ props.note.body }</Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                    <small className="text-muted">Last Modified: { getLastModifiedTime(Date.now(), props.note.lastModified ) }</small>
-                </Card.Footer>
-            </Card>
-        </div>
-    );
+    editNote = () => {
+        alert('edit clicked');
+    }
+
+    deleteNote = () => {
+        alert('delete clicked');
+    }
+
+    cardMouseEnter = () => {
+        this.setState({ cardHover: true });
+    }
+
+    cardMouseLeave = () => {
+        this.setState({ cardHover: false });
+    }
+
+
+    render() {
+        return (
+            <div className="noteCard">
+                <Card border="primary" bg="light" onMouseEnter={ this.cardMouseEnter } onMouseLeave= { this.cardMouseLeave }>
+                    <Card.Header as="h4">
+                        <strong>
+                            { this.props.note.title }
+                        </strong>
+                        {   
+                            this.state.cardHover ?
+                                <small>
+                                    <span className="pencil glyphicon glyphicon-pencil" onClick={this.editNote}></span> 
+                                    <span className="pencil glyphicon glyphicon-trash" onClick={this.deleteNote}></span>
+                                </small>
+                             : ""   
+                        }
+                    </Card.Header>
+                    <Card.Body>
+                        <Card.Text>{ this.props.note.body }</Card.Text>
+                        <Card.Text className="invisible">{ this.props.note._id }</Card.Text>
+                    </Card.Body>
+                    <Card.Footer>
+                        <small className="text-muted">Last Modified: { this.getLastModifiedTime(Date.now(), this.props.note.lastModified ) }</small>
+                    </Card.Footer>
+                </Card>
+            </div>
+        );
+    }
 }
+
+export default NoteComponent;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NoteComponent } from './note.component';
+import NoteComponent from './note.component';
 
 import './styles/note-list.component.css'
 

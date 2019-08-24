@@ -11,3 +11,7 @@
     transform: translateZ(0);
     transition: transform 0.25 ease-out;
 }
+
+.Card.Text invisible {
+    display: none;
+}
