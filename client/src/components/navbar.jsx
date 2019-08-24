@@ -27,7 +27,6 @@ class Navbar extends Component {
                     <NavIcon name="Home" status="active" />
                     <NavIcon name="Login" status="" />
                     <NavIcon name="Register" status="" />
-                    <NavIcon name="Notes" status="" />
                 </div>
            );
         }

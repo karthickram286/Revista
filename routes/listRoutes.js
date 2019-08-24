@@ -13,14 +13,15 @@ router.post('/addNote', authorize, asyncMiddleware(async (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
     let modifiedTime = req.body.modifiedTime;
+    
     let addedNote = await saveNote(userId, title, body, modifiedTime);
     if (addedNote) {
-        res.send({
+        res.status(200).send({
             id: addedNote._id,
             status: 'Note added successfully...',
         });
     } else {
-        res.send({ 
+        res.status(500).send({ 
             status: `Can't add note`
         });
     }
@@ -47,15 +48,21 @@ async function saveNote(userId, title, body, modifiedTime) {
 // Getting a note with ID
 router.get('/getNote/:id', authorize, asyncMiddleware(async (req, res) => {
     let id = req.params.id;
-    const note = await Note.findById(id);
+    let userId = req.header('x-user-id');
+    const note = await Note.find({ userId: userId, _id: id });
     res.send(note);
 }));
 
 // Get all notes
 router.get('/getAllNotes', authorize, asyncMiddleware(async (req, res) => {
     let userId = req.header('x-user-id');
-    const notes = await Note.find({ userId: userId }).select('title body lastModified');
-    res.send(notes);
+    try {
+        const notes = await Note.find({ userId: userId }).select('title body lastModified');
+        res.send(notes);
+    } catch(err) {
+        console.log(`Can't get note. Reason: ` + err.message);
+        res.send(`Can't get Note`);
+    }
 }));
 
 // Update a note by id
@@ -64,22 +71,34 @@ router.post('/updateNote/:id', authorize, asyncMiddleware(async (req, res) => {
     let newTitle = req.body.title;
     let newBody = req.body.body;
     let id = req.params.id;
-    await Note.findByIdAndUpdate({ userId: userId, _id: id }, {
-        $set: {
-            title: newTitle,
-            body: newBody,
-            lastModified: Date.now()
-        }
-    });
-    res.send('Note updated successfully');
+    let modifiedTime = req.body.modifiedTime;
+
+    try {
+        await Note.findByIdAndUpdate({ userId: userId, _id: id }, {
+            $set: {
+                title: newTitle,
+                body: newBody,
+                lastModified: modifiedTime
+            }
+        });
+        res.status(200).send('Note updated successfully');
+    } catch(err) {
+        console.log(`Can't update note. Reason: ` + err.message);
+        res.status(500).send(`Can't update note`);
+    }
 }));
 
 // Remove a note by id
 router.delete('/deleteNote/:id', authorize, asyncMiddleware(async (req, res) => {
     let userId = req.body.userId;
     let id = req.params.id;
-    await Note.findByIdAndDelete({ userId: userId,  _id: id });
-    res.send('Note deleted successfully');
+    try {
+        await Note.findOneAndDelete({ userId: userId,  _id: id });
+        res.status(200).send('Note deleted successfully');
+    } catch (err) {
+        console.log(`Can't delete note. Reason: ` + err.message);
+        res.status(500).send(`Can't delete note.`);
+    }
 }));
 
 module.exports = router;

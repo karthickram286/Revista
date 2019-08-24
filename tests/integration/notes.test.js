@@ -20,7 +20,7 @@ describe('Note Rest APIs', () => {
             const res = await superTest(server)
                 .post('/api/notes/addNote')
                 .set('x-auth-token', token)
-                .send({ title: 'test-title', body: 'lorem ipsum' });
+                .send({ userId: 'testUser', title: 'test-title', body: 'lorem ipsum', modifiedTime: Date.now() });
             noteId = res.body.id;
 
             expect(res.status).toBe(200);
@@ -30,7 +30,7 @@ describe('Note Rest APIs', () => {
             const res = await superTest(server)
                 .post('/api/notes/updateNote/' + noteId)
                 .set('x-auth-token', token)
-                .send({ title: 'updated-test-title', body: 'updated lorem ipsum' });
+                .send({ userId: 'testUser', title: 'updated-test-title', body: 'updated lorem ipsum', modifiedTime: Date.now() });
 
             expect(res.status).toBe(200);
         });
@@ -40,7 +40,8 @@ describe('Note Rest APIs', () => {
         it('should get a note for a given id', async () => {
             const res = await superTest(server)
                 .get('/api/notes/getNote/' + noteId)
-                .set('x-auth-token', token);
+                .set('x-auth-token', token)
+                .set('x-user-id', 'testUser');
             
             expect(res.status).toBe(200);
         });
@@ -48,7 +49,8 @@ describe('Note Rest APIs', () => {
         it ('should return all notes', async () => {
             const res = await superTest(server)
                 .get('/api/notes/getAllNotes')
-                .set('x-auth-token', token);
+                .set('x-auth-token', token)
+                .set('x-user-id', 'testUser');
             
             expect(res.status).toBe(200);
         });
@@ -58,7 +60,8 @@ describe('Note Rest APIs', () => {
         it('should delete a note for a given id', async () => {
             const res = await superTest(server)
                 .delete('/api/notes/deleteNote/' + noteId)
-                .set('x-auth-token', token);
+                .set('x-auth-token', token)
+                .send({ userId: 'testUser'});
             
             expect(res.status).toBe(200);
         });
