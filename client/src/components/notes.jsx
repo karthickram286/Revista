@@ -23,12 +23,19 @@ class Notes extends React.Component {
     }
 
     componentDidMount() {
+        let url = '';
+        if (this.state.domain === 'localhost') {
+            url = 'http://localhost:4000/api/notes/getAllNotes';
+        } else {
+            url = 'https://' + this.state.domain + '/api/notes/getAllNotes';
+        }
         if (this.state.isUsedSignedIn === true) {
-            fetch('https://' + this.state.domain + '/api/notes/getAllNotes', {
+            fetch(url, {
                 method: 'GET',
                     headers: {
                         'x-auth-token': this.state.authToken,
-                    },
+                        'x-user-id': localStorage.getItem('userId')
+                    }
             }).then(response => response.json())
                 .then(allNotes => {
                     this.setState( { notes: allNotes });
@@ -64,11 +71,19 @@ class Notes extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         const noteData = {
+            userId: localStorage.getItem('userId'),
             title: this.state.noteTitle,
-            body: this.state.noteBody
+            body: this.state.noteBody,
+            modifiedTime: Date.now()
         }
+        let url = '';
+        if (this.state.domain === 'localhost') {
+            url = 'http://localhost:4000/api/notes/addNote';
+        } else {
+            url = 'https://' + this.state.domain + '/api/notes/addNote';
+        }   
         if (this.state.isUsedSignedIn === true) {
-            fetch('https://' + this.state.domain + '/api/notes/addNote', {
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'x-auth-token': this.state.authToken,

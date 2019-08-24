@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, FormLabel, ListGroup, Badge } from 'react-bootstrap';
 import './styles/register-page.css';
 
 class RegisterPage extends React.Component {
@@ -40,7 +40,13 @@ class RegisterPage extends React.Component {
             return;
         }
 
-        fetch('https://' + this.state.domain + '/api/user/addUser', {
+        let url = '';
+        if (this.state.domain === 'localhost') {
+            url = 'http://localhost:4000/api/user/addUser';
+        } else {
+            url = 'https://' + this.state.domain + '/api/user/addUser';
+        }
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +64,24 @@ class RegisterPage extends React.Component {
     
     render() {
         return(
-            <div className="loginpage">
+            <div className="registerpage">
+                <div className="registeralert">
+                <ListGroup as="ul">
+                    <ListGroup.Item as="li" active>
+                        Password must
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" disabled>
+                        Have atleast one capital letter
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" disabled>
+                    Have atleast one number
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li" disabled>
+                        Be atleast 6 characters
+                    </ListGroup.Item>
+                </ListGroup>
+                </div>
+                <br /><br />
                 <form onSubmit= { this.handleSubmit }>
                     <FormGroup controlId="name">
                         <FormLabel>Name</FormLabel>
@@ -98,9 +121,7 @@ class RegisterPage extends React.Component {
                         />
                     </FormGroup>
 
-                    <FormGroup>
-                        <FormLabel>{ this.state.nameStatus }</FormLabel>
-                    </FormGroup>
+                    <Badge pill variant="info">{ this.state.nameStatus }</Badge>
                     <Button
                         block
                         disabled={ !this.validateForm() }

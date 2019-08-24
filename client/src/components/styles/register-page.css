@@ -2,6 +2,10 @@
     padding: 60px 0;
   }
 
+  .registeralert {
+    margin: 0 450px;
+  }
+
   .registerpage form {
     margin: 0 auto;
     max-width: 320px;

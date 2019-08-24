@@ -41,6 +41,7 @@ class HomePage extends React.Component {
 
     yesLogout = () => {
         sessionStorage.removeItem('isLogout');
+        localStorage.removeItem('userId');
         this.removeAuthToken();
     }
 

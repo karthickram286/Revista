@@ -10,7 +10,6 @@ const NavIcon = (props) => {
     } else {
         url = path;
     }
-    console.log(url);
     return (
         <Link className={`${props.status}`} to={url}>{ props.name }</Link>
     );

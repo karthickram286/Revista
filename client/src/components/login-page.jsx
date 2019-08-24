@@ -41,7 +41,13 @@ class LoginPage extends React.Component {
             password: this.state.password
         }
 
-        fetch('https://' + this.state.domain + '/api/user/signInUser', {
+        let url = '';
+        if (this.state.domain === 'localhost') {
+            url = 'http://localhost:4000/api/user/signInUser';
+        } else {
+            url = 'https://' + this.state.domain + '/api/user/signInUser';
+        }
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,6 +58,7 @@ class LoginPage extends React.Component {
                 if (signInUser.authToken !== undefined) {
                     this.setState({ status: 'Successfully signed in...' });
                     this.setCookie(signInUser.authToken);
+                    localStorage.setItem('userId', this.state.email);
                     this.routeChange();
                 } else {
                     this.setState({ status: signInUser.error})

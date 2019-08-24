@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // Creating a model for Note
 const Note = mongoose.model('Note', new mongoose.Schema({
+    userId: {
+        type: String,
+        require: true,
+    },
     title: { 
         type: String, 
         required: true 
@@ -10,14 +14,8 @@ const Note = mongoose.model('Note', new mongoose.Schema({
         type: String, 
         required: true 
     },
-    dateCreated: { 
-        type: Date,
-        default: Date.now,
-        required: true 
-    },
     lastModified: { 
-        type: Date, 
-        default: Date.now,
+        type: String, 
         required: true 
     }
 }));
