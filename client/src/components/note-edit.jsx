@@ -60,7 +60,7 @@ class NoteEdit extends React.Component {
         if (this.state.domain === 'localhost') {
             url = 'http://localhost:4000/api/notes/updateNote/' + this.state.noteId;
         } else {
-            url = 'https://' + this.state.domain + '/api/notes/updateNote' + this.state.noteId;
+            url = 'https://' + this.state.domain + '/api/notes/updateNote/' + this.state.noteId;
         }   
         if (this.state.isUsedSignedIn === true) {
             fetch(url, {
