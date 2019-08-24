@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, FormLabel, Badge } from 'react-bootstrap';
 
-import { NoteList } from './note-list.component';
+import NoteList from './note-list.component';
 
 import './styles/notes.css';
 
@@ -22,7 +22,7 @@ class Notes extends React.Component {
         }
     }
 
-    componentDidMount() {
+    fetchNotes() {
         let url = '';
         if (this.state.domain === 'localhost') {
             url = 'http://localhost:4000/api/notes/getAllNotes';
@@ -41,6 +41,10 @@ class Notes extends React.Component {
                     this.setState( { notes: allNotes });
                 });
         }
+    }
+
+    componentDidMount() {
+        this.fetchNotes();
     }
 
     getUserSignedIn() {
@@ -94,6 +98,7 @@ class Notes extends React.Component {
                 .then(addNote => {
                     if (addNote.id !== undefined) {
                         this.setState({ status: 'Note added successfully'});
+                        setTimeout(this.fetchNotes(), 1000);
                     } else {
                         this.setState({ status: addNote.status});
                     }
@@ -105,11 +110,15 @@ class Notes extends React.Component {
         }
     }
 
+    resetStatus = () => {
+        this.setState({ status: '' });
+    }
+
     render() {
         return(
             <div>
                 <div className="notes-page">
-                    <form onSubmit= { this.handleSubmit }>
+                    <form onSubmit= { this.handleSubmit } onChange={ this.resetStatus }>
                         <FormGroup controlId="noteTitle">
                             <FormLabel color="blue">Title</FormLabel>
                             <FormControl
@@ -133,7 +142,7 @@ class Notes extends React.Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <FormLabel>{ this.state.status }</FormLabel>
+                            <Badge pill variant="info">{ this.state.status }</Badge>
                         </FormGroup>
 
                         <Button

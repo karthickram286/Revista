@@ -6,14 +6,13 @@ import './styles/note.component.css';
 
 class NoteComponent extends React.Component {
 
-    constructor() {
-        super();
-
-        this.state = {
-            domain: window.location.hostname,
-            cardHover: false,
-            
-        }
+    state = {
+        domain: window.location.hostname,
+        cardHover: false,
+        title: this.props.note.title,
+        body: this.props.note.body,
+        noteId: this.props.note._id,
+        userId: localStorage.getItem('userId')
     }
 
      // Referred from 
@@ -68,7 +67,6 @@ class NoteComponent extends React.Component {
         this.setState({ cardHover: false });
     }
 
-
     render() {
         return (
             <div className="noteCard">
@@ -91,7 +89,7 @@ class NoteComponent extends React.Component {
                         <Card.Text className="invisible">{ this.props.note._id }</Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <small className="text-muted">Last Modified: { this.getLastModifiedTime(Date.now(), this.props.note.lastModified ) }</small>
+                        <small className="text-muted">Last modified { this.getLastModifiedTime(Date.now(), this.props.note.lastModified ) }</small>
                     </Card.Footer>
                 </Card>
             </div>
