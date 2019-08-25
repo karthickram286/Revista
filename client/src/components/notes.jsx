@@ -142,7 +142,7 @@ class Notes extends React.Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <Badge pill variant="info">{ this.state.status }</Badge>
+                            <Badge pill variant="primary">{ this.state.status }</Badge>
                         </FormGroup>
 
                         <Button

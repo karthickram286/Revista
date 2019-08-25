@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 
 import './styles/note.component.css';
 
@@ -18,7 +18,8 @@ class NoteComponent extends React.Component {
         userId: localStorage.getItem('userId'),
         editLink: {
             pathName: "/noteEdit/" + this.props.note._id
-        }
+        },
+        display: true
     }
 
     getUserSignedIn() {
@@ -111,12 +112,50 @@ class NoteComponent extends React.Component {
             }).then(response => response.json())
                     .then(updateNote => {
                         alert(updateNote.status);
+                        this.setState({ displayNote: false });
                     }).catch((err) => {
                         alert(`Can't update note`);
                     });;
         } else {
             alert('User not signed in')
         }
+    }
+
+    undoDeleteNote = () => {
+        const noteData = {
+            userId: localStorage.getItem('userId'),
+            title: this.state.title,
+            body: this.state.body,
+            modifiedTime: Date.now()
+        }
+        let url = '';
+        if (this.state.domain === 'localhost') {
+            url = 'http://localhost:4000/api/notes/addNote';
+        } else {
+            url = 'https://' + this.state.domain + '/api/notes/addNote';
+        }   
+        if (this.state.isUsedSignedIn === true) {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'x-auth-token': this.state.authToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(noteData)
+            }).then(response => response.json())
+                .then(addNote => {
+                    if (addNote.id !== undefined) {
+                        alert(`Undo successful`);
+                    } else {
+                        alert(`Can't undo note deletion`);
+                    }
+                }).catch((err) => {
+                        alert(`Can't access...Authentication token not provided`);
+                });
+        } else {
+            alert(`Log in to add note`);
+        }
+        this.setState({ displayNote: true });
     }
 
     cardMouseEnter = () => {
@@ -128,35 +167,51 @@ class NoteComponent extends React.Component {
     }
 
     render() {
-        return (
-            <div className="noteCard">
-
-                <Card border="primary" bg="light" onMouseEnter={ this.cardMouseEnter } onMouseLeave= { this.cardMouseLeave }>
-                    <Card.Header as="h4">
-                        <strong>
-                            { this.props.note.title }
-                        </strong>
-                        {   
-                            this.state.cardHover ?
-                                <small>
-                                    <Link to={ this.state.editLink.pathName } >
-                                        <span className="pencil glyphicon glyphicon-pencil"></span>
-                                    </Link>
-                                    <span className="pencil glyphicon glyphicon-trash" onClick={this.deleteNote}></span>
-                                </small>
-                             : ""   
-                        }
-                    </Card.Header>
-                    <Card.Body>
-                        <Card.Text>{ this.props.note.body }</Card.Text>
-                        <Card.Text className="invisible">{ this.props.note._id }</Card.Text>
-                    </Card.Body>
-                    <Card.Footer>
-                        <small className="text-muted">Last modified { this.getLastModifiedTime(Date.now(), this.props.note.lastModified ) }</small>
-                    </Card.Footer>
-                </Card>
-            </div>
-        );
+        if (this.state.displayNote === false) {
+            return (
+                <div className="noteCard">
+                    <Card border="primary" bg="dark" text="white" onMouseEnter={ this.cardMouseEnter } onMouseLeave= { this.cardMouseLeave }>
+                        <Card.Header as="h4">
+                                Deleted Note
+                        </Card.Header>
+                        <Card.Body>
+                            <Button onClick={ this.undoDeleteNote }> 
+                                Undo
+                            </Button>
+                        </Card.Body>
+                    </Card>
+                </div>
+            );
+        } else {
+            return (
+                <div className="noteCard">
+                    <Card border="primary" bg="light" onMouseEnter={ this.cardMouseEnter } onMouseLeave= { this.cardMouseLeave }>
+                        <Card.Header as="h4">
+                            <strong>
+                                { this.props.note.title }
+                            </strong>
+                            {   
+                                this.state.cardHover ?
+                                    <small>
+                                        <Link to={ this.state.editLink.pathName } >
+                                            <span className="pencil glyphicon glyphicon-pencil"></span>
+                                        </Link>
+                                        <span className="pencil glyphicon glyphicon-trash" onClick={this.deleteNote}></span>
+                                    </small>
+                                 : ""   
+                            }
+                        </Card.Header>
+                        <Card.Body>
+                            <Card.Text>{ this.props.note.body }</Card.Text>
+                            <Card.Text className="invisible">{ this.props.note._id }</Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                            <small className="text-muted">Last modified { this.getLastModifiedTime(Date.now(), this.props.note.lastModified ) }</small>
+                        </Card.Footer>
+                    </Card>
+                </div>
+            );
+        }
     }
 }
 

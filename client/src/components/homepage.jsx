@@ -51,15 +51,15 @@ class HomePage extends React.Component {
                 return (
                     <div className="homepage">
                         <h3>Welcome to Revista</h3><br/>
-                        <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.logoutPrompt }>Logout</Button>
-                        <Link to="/notes" className="btn btn-light">Notes</Link>
+                        <Link to="/notes" className="btn btn-primary">Notes</Link>
+                        <Button style={{marginLeft: 15}} className="btn btn-danger" onClick={ this.logoutPrompt }>Logout</Button>
                     </div>
                 );
             } else if (sessionStorage.getItem('isLogout') === 'true') {
                 return (
                     <div className="homepage">
                         <h3>Are you sure you want to Logout?</h3><br/>
-                        <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.yesLogout }>Yes</Button>
+                        <Button style={{marginRight: 15}} className="btn btn-danger" onClick={ this.yesLogout }>Yes</Button>
                         <Button style={{marginRight: 15}} className="btn btn-primary" onClick={ this.noLogout }>No</Button>
                     </div>
                 );
