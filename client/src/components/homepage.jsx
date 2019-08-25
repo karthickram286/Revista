@@ -80,7 +80,7 @@ class HomePage extends React.Component {
                     <img src={revistaLogo} alt="revista-logo"></img>
                     <div className="App-subtitle">A simple journal application</div>
                     <Link to="/login" style={{marginRight: 15}} className="btn btn-primary">Login</Link>
-                    <Link to="/register" className="btn btn-light">Sign Up</Link>
+                    <Link to="/register" className="btn btn-success">Sign Up</Link>
                 </div>
             );
         }
