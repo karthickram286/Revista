@@ -24,7 +24,7 @@ function App() {
             <Route exact path="/notes" component= { Notes } />
             <Route exact path="/noteEdit/:noteId" component = { NoteEdit } />
           </Switch>
-        <Footer content="copyright @copy 2018 Revista.inc" />
+        <Footer content="© 2019 Copyright: Revista.com" />
       </div>
     );
   } else {
@@ -36,7 +36,7 @@ function App() {
             <Route exact path="/login" component= { LoginPage } />
             <Route exact path="/register" component= { RegisterPage } />
           </Switch>
-        <Footer content="copyright @copy 2018 Revista.inc" />
+        <Footer content="© 2019 Copyright: Revista.com" />
       </div>
     );
   }
