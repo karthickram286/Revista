@@ -6,7 +6,7 @@ Revista is a simple Journal/Diary application built with MERN stack.
 
 ## Overview
 This app was created for Chingu Voyage 11 pre-work. It uses Express.js, React(Create React App) and MLab for mongoose instance.
-** Live version: **  https://cryptic-oasis-70200.herokuapp.com/
+**Live version**  https://cryptic-oasis-70200.herokuapp.com/
 
 ## Features
 - User Authentication and Autorization
