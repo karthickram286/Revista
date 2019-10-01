@@ -1,5 +1,5 @@
 # Revista   [![Build Status](https://travis-ci.org/karthickram286/Revista.svg?branch=master)](https://travis-ci.org/karthickram286/Revista)     [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)    
-![GitHub top language](https://img.shields.io/github/languages/top/karthickram286/Revista?style=for-the-badge)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/karthickram286/Revista?style=for-the-badge)   ![GitHub repo size](https://img.shields.io/github/repo-size/karthickram286/Revista?style=for-the-badge)
+![GitHub top language](https://img.shields.io/github/languages/top/karthickram286/Revista?style=for-the-badge)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/karthickram286/Revista?style=for-the-badge)   ![GitHub repo size](https://img.shields.io/github/repo-size/karthickram286/Revista?style=for-the-badge)    ![GitHub issues](https://img.shields.io/github/issues/karthickram286/Revista?style=for-the-badge)
 
 Revista is a simple Journal/Diary application built with MERN stack.
 
