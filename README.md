@@ -21,7 +21,7 @@ This app was created for Chingu Voyage 11 pre-work. It uses Express.js, React(Cr
     1. Run `npm run dev` - To start the project in development mode
     2. Run `npm run server` - To start only the server
     3. Run `npm run client` - To start only the client
-    4. Run `npm test` - To run the test cases
+    4. Run `npm test` - To run test cases
 
 ## Dev Dependencies
 - bcrypt
@@ -42,6 +42,6 @@ This app was created for Chingu Voyage 11 pre-work. It uses Express.js, React(Cr
 https://github.com/karthickram286/Revista/issues
 
 ## Contributing
-- Run the project the development mode 
+- Run the project in development mode 
 - Make the changes
 - Make a PR :)
